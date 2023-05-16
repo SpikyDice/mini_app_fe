@@ -20,21 +20,28 @@ function InsertNewPassword() {
   //Setup dispatch
   const dispatch = useDispatch();
 
+  //onInput setup
+  const [onInput, setOnInput] = useState(false);
+
   //Handler
   const submitButtonHandler = async (newUserPassword) => {
     const { newPassword, confirmPassword } = newUserPassword;
     if (newPassword !== confirmPassword) {
       alert(`Password entered do not match`);
     } else {
+      setOnInput(true);
       const resultPasswordChange = await sendNewUserPassword(
         newUserPassword,
         token
       );
+      setOnInput(false);
       if (!resultPasswordChange.success) {
         alert(resultPasswordChange.message);
       } else {
+        setOnInput(true);
         alert(`${resultPasswordChange.message}, redirecting you to Login Page`);
-        await new Promise((r) => setTimeout(r, 2000));
+        await new Promise((r) => setTimeout(r, 200));
+        setOnInput(false);
         navigate("/login");
       }
     }
@@ -153,8 +160,9 @@ function InsertNewPassword() {
                     </div>
                     <div>
                       <button
+                        disabled={onInput}
                         type="submit"
-                        className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="group disabled:bg-gray-600 relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                       >
                         SUBMIT
                       </button>

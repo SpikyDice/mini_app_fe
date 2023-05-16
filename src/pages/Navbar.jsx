@@ -48,7 +48,7 @@ function Navbar() {
     <div className="flex flex-row justify-between h-20 bg-black">
       <div
         className="my-auto text-white ml-10 hover:cursor-pointer font-bold"
-        onClick={() => navigate(`/posts/${user.iduser}`)}
+        onClick={() => navigate(`/`)}
       >
         DASHBOARD
       </div>
@@ -57,9 +57,18 @@ function Navbar() {
         {user.iduser ? (
           <div className="flex flex-row mr-10">
             <div
-              onClick={() => navigate(`/home/${user.iduser}`)}
-              className="my-auto text-white mr-10"
+              className="my-auto text-white mr-20 hover:cursor-pointer font-bold"
+              onClick={() => navigate(`/posts/${user.iduser}`)}
             >
+              ALL POSTS
+            </div>
+            <div
+              className="my-auto text-white mr-20 hover:cursor-pointer font-bold"
+              onClick={() => navigate(`/home/${user.iduser}`)}
+            >
+              CREATE POST
+            </div>
+            <div className="my-auto text-white mr-10">
               WELCOME {`${user.username.toUpperCase()}`}
             </div>
 
@@ -67,11 +76,11 @@ function Navbar() {
               <MenuHandler>
                 <Avatar
                   variant="circular"
-                  alt="candice wu"
-                  className="cursor-pointer"
+                  alt=""
+                  className="cursor-pointer bg-blue-500"
                   src={
                     !`http://localhost:8000/${user.profile.profile_picture}`
-                      ? `http://localhost:8000/2606517_5856-1684146254978.jpg`
+                      ? `http://localhost:8000/Default-1684152979320.jpg`
                       : `http://localhost:8000/${user.profile.profile_picture}`
                   }
                 />

@@ -16,6 +16,7 @@ function Register() {
 
   //hook for password visibility
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [onInput, setOnInput] = useState(false);
 
   function togglePasswordVisibility() {
     setIsPasswordVisible(!isPasswordVisible);
@@ -23,11 +24,13 @@ function Register() {
 
   //Handler
   const submitButtonHandler = async (userData) => {
+    setOnInput(true);
     const resultOnLogin = await dispatch(loginUser(userData));
+    setOnInput(false);
     if (resultOnLogin.success) {
       alert("Login Success, Redirecting to Home Page");
-      await new Promise((r) => setTimeout(r, 500));
-      navigate(`/home/${resultOnLogin.userData.iduser}`);
+      await new Promise((r) => setTimeout(r, 200));
+      navigate(`/posts/${resultOnLogin.userData.iduser}`);
     } else {
       alert(resultOnLogin.message);
     }
@@ -133,7 +136,8 @@ function Register() {
                     <div>
                       <button
                         type="submit"
-                        className="group relative flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        className="group relative disabled:bg-gray-600 flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                        disabled={onInput}
                       >
                         LOGIN
                       </button>

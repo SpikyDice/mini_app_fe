@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useParams, useNavigate } from "react-router-dom";
 
 //importing post component
 import PostCard from "../component/PostCard";
@@ -7,6 +8,8 @@ import { fetchUserPost } from "../features/posts/postSlice";
 
 function Posts() {
   const dispatch = useDispatch();
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(fetchUserPost());

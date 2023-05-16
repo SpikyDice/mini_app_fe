@@ -34,12 +34,10 @@ function App() {
   const userGlobal = useSelector((state) => state.user);
 
   useEffect(() => {
-    console.log("App useEffect Jalan");
     if (userToken) {
       dispatch(checkLogin(userToken));
     } else {
       dispatch(logoutUser);
-      navigate("/login");
     }
   }, []);
 

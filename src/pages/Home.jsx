@@ -31,6 +31,10 @@ function Home() {
     let preview = document.getElementById("imagepreview");
     preview.src = URL.createObjectURL(event.target.files[0]);
   };
+
+  //onInput handler
+  const [onInput, setOnInput] = useState(false);
+
   //edit fullname handler
   const [caption, setCaption] = useState("");
   const onSetCaption = (event) => setCaption(event.target.value);
@@ -47,13 +51,16 @@ function Home() {
       formData.append(`file`, file);
       formData.append(`data`, JSON.stringify(obj));
 
+      setOnInput(true);
       const response = await Axios.post(
         "http://localhost:8000/addpost",
         formData
       );
+      setOnInput(false);
 
       if (response.data.success) {
         alert("Data successfully added");
+        navigate(`/posts/${iduser}`);
       }
     } else {
       alert("Select image first");
@@ -109,7 +116,12 @@ function Home() {
               id="formFile"
             />
             <div className="w-full text-center mt-4">
-              <Button size="sm" color={"blue"} onClick={uploadImage}>
+              <Button
+                size="sm"
+                color={"blue"}
+                onClick={uploadImage}
+                disabled={onInput}
+              >
                 Submit
               </Button>
             </div>

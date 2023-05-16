@@ -38,11 +38,10 @@ export const recordUser = async (userData) => {
   //alert if fail
   if (response.data.success === false) {
     alert(response.data.message);
+    return;
   }
 
-  if (response.data.success === true) {
-    return response.data;
-  }
+  return response.data;
 };
 
 export const loginUser = (userData) => {
